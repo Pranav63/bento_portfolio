@@ -1,33 +1,23 @@
-/* src/styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-  }
+body {
+  @apply bg-gradient-to-br from-[#1a1b2e] to-[#2d2b55];
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-@layer components {
-  .bento-card {
-    @apply bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300;
-  }
-  
-  .bento-card-hover {
-    @apply hover:scale-[1.02] transition-transform duration-300;
-  }
-}
-
-/* Custom scrollbar */
+/* Optional: Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-purple-500 rounded-full;
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 4px;
 }

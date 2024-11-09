@@ -1,7 +1,6 @@
 // src/pages/index.tsx
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import ProfileLoader from '../components/ProfileLoader';
 import BentoGrid from '../components/BentoGrid';
 
 export default function Home() {
@@ -28,14 +27,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        {isLoading ? (
-          <ProfileLoader />
-        ) : (
-          <div className="min-h-screen py-8 px-4">
-            <BentoGrid />
-          </div>
-        )}
+      <main className="min-h-screen bg-gradient-to-br from-[#1a1b2e] to-[#2d2b55]">
+        <BentoGrid />
       </main>
     </>
   );
