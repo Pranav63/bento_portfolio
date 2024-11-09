@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
-const BentoCard = ({ children, className = '', delay = 0 }) => (
+interface BentoCardProps {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}
+
+const BentoCard: React.FC<BentoCardProps> = ({ children, className = '', delay = 0 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -14,8 +20,27 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
   </motion.div>
 );
 
-const BentoGrid = () => {
-  const experiences = [
+// Define interfaces for our data types
+interface Experience {
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+}
+
+interface Skill {
+  name: string;
+  level: string;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  link: string;
+}
+
+const BentoGrid: React.FC = () => {
+  const experiences: Experience[] = [
     {
       title: "Senior Data Scientist",
       company: "HPE",
@@ -25,14 +50,14 @@ const BentoGrid = () => {
     // ... other experiences
   ];
 
-  const skills = [
+  const skills: Skill[] = [
     { name: "Machine Learning", level: "Expert" },
     { name: "Python", level: "Expert" },
     { name: "TensorFlow", level: "Advanced" },
     // ... other skills
   ];
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "GAN's Face Generation",
       description: "Face profile completion using Generative Adversarial Networks.",

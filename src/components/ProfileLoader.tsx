@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const ProfileLoader = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+const ProfileLoader: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
