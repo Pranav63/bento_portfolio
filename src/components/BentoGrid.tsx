@@ -107,10 +107,12 @@ const BentoGrid: React.FC = () => {
     linkedin: "https://www.linkedin.com/in/pranavarora63/"
   };
 
-return (
+  return (
     <div className={`min-h-screen ${
-      colorMode === 'dark' ? 'bg-[#1a2f38]' : 'bg-[#f0f4f8]'
-    } text-[#e4e4e4] p-4`}>
+      colorMode === 'dark' 
+        ? 'bg-[#1a2f38] text-[#e4e4e4]' 
+        : 'bg-[#f0f7ff] text-[#2d3748]'
+    } p-4`}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Hero Section - Spans 2 columns */}
@@ -125,11 +127,17 @@ return (
             isVisible={showCards}
             variant="light"
           >
-            <h2 className="text-xl font-bold mb-6">Connect</h2>
+            <h2 className={`text-xl font-bold mb-6 ${
+              colorMode === 'dark' ? 'text-white' : 'text-[#2d3748]'
+            }`}>Connect</h2>
             <div className="flex flex-col space-y-4">
               <a
                 href={`mailto:${contactInfo.email}`}
-                className="flex items-center space-x-3 hover:text-[#1c1c1c] transition-colors p-2 rounded-lg hover:bg-[#e0e0e0]"
+                className={`flex items-center space-x-3 transition-colors p-2 rounded-lg ${
+                  colorMode === 'dark'
+                    ? 'hover:bg-[#34565f] text-[#e4e4e4] hover:text-white'
+                    : 'hover:bg-[#f0f7ff] text-[#4a5568] hover:text-[#2d3748]'
+                }`}
               >
                 <FaEnvelope className="text-xl" />
                 <span>Email Me</span>
@@ -138,7 +146,11 @@ return (
                 href={contactInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-3 hover:text-[#1c1c1c] transition-colors p-2 rounded-lg hover:bg-[#e0e0e0]"
+                className={`flex items-center space-x-3 transition-colors p-2 rounded-lg ${
+                  colorMode === 'dark'
+                    ? 'hover:bg-[#34565f] text-[#e4e4e4] hover:text-white'
+                    : 'hover:bg-[#f0f7ff] text-[#4a5568] hover:text-[#2d3748]'
+                }`}
               >
                 <FaGithub className="text-xl" />
                 <span>GitHub</span>
@@ -147,7 +159,11 @@ return (
                 href={contactInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-3 hover:text-[#1c1c1c] transition-colors p-2 rounded-lg hover:bg-[#e0e0e0]"
+                className={`flex items-center space-x-3 transition-colors p-2 rounded-lg ${
+                  colorMode === 'dark'
+                    ? 'hover:bg-[#34565f] text-[#e4e4e4] hover:text-white'
+                    : 'hover:bg-[#f0f7ff] text-[#4a5568] hover:text-[#2d3748]'
+                }`}
               >
                 <FaLinkedin className="text-xl" />
                 <span>LinkedIn</span>
@@ -164,13 +180,25 @@ return (
               className="h-full"
               variant="dark"
             >
-              <h2 className="text-xl font-bold mb-4">Experience</h2>
+              <h2 className={`text-xl font-bold mb-4 ${
+                colorMode === 'dark' ? 'text-white' : 'text-[#2d3748]'
+              }`}>Experience</h2>
               <div className="space-y-4">
                 {experiences.map((exp, index) => (
-                  <div key={index} className="border-l-2 border-[#404040] pl-4">
-                    <h3 className="font-bold">{exp.title}</h3>
-                    <p className="text-sm text-[#b4b4b4]">{exp.company} • {exp.period}</p>
-                    <p className="mt-2 text-[#e4e4e4]">{exp.description}</p>
+                  <div key={index} className={`border-l-2 pl-4 ${
+                    colorMode === 'dark' 
+                      ? 'border-[#404040]' 
+                      : 'border-[#cbd5e0]'
+                  }`}>
+                    <h3 className={`font-bold ${
+                      colorMode === 'dark' ? 'text-white' : 'text-[#2d3748]'
+                    }`}>{exp.title}</h3>
+                    <p className={`text-sm ${
+                      colorMode === 'dark' ? 'text-[#b4b4b4]' : 'text-[#718096]'
+                    }`}>{exp.company} • {exp.period}</p>
+                    <p className={`mt-2 ${
+                      colorMode === 'dark' ? 'text-[#e4e4e4]' : 'text-[#4a5568]'
+                    }`}>{exp.description}</p>
                   </div>
                 ))}
               </div>
@@ -185,12 +213,18 @@ return (
             className="h-full"
             variant="neutral"
           >
-            <h2 className="text-xl font-bold mb-4">Skills</h2>
+            <h2 className={`text-xl font-bold mb-4 ${
+              colorMode === 'dark' ? 'text-white' : 'text-[#2d3748]'
+            }`}>Skills</h2>
             <div className="space-y-3">
               {skills.map((skill, index) => (
                 <div key={index} className="flex justify-between items-center">
-                  <span>{skill.name}</span>
-                  <span className="text-sm text-[#b4b4b4]">{skill.level}</span>
+                  <span className={
+                    colorMode === 'dark' ? 'text-[#e4e4e4]' : 'text-[#2d3748]'
+                  }>{skill.name}</span>
+                  <span className={`text-sm ${
+                    colorMode === 'dark' ? 'text-[#b4b4b4]' : 'text-[#718096]'
+                  }`}>{skill.level}</span>
                 </div>
               ))}
             </div>
@@ -204,7 +238,9 @@ return (
               isVisible={showCards} 
               variant="light"
             >
-              <h2 className="text-xl font-bold mb-6">Projects</h2>
+              <h2 className={`text-xl font-bold mb-6 ${
+                colorMode === 'dark' ? 'text-white' : 'text-[#2d3748]'
+              }`}>Projects</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map((project, index) => (
                   <ProjectCard key={index} project={project} />

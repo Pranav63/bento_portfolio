@@ -44,13 +44,14 @@ const BentoCard: React.FC<BentoCardProps> = ({
           return 'bg-[#233d47] text-[#f5f5f5] border-[#34565f]';
       }
     } else {
+      // New light mode colors with better contrast
       switch(variant) {
         case 'light':
-          return 'bg-[#ffffff] text-[#2d3748] border-[#e2e8f0]';
+          return 'bg-white text-[#2d3748] border-[#e2e8f0]';
         case 'dark':
-          return 'bg-[#f0f4f8] text-[#2d3748] border-[#e2e8f0]';
+          return 'bg-[#edf2f7] text-[#2d3748] border-[#e2e8f0]';
         default:
-          return 'bg-[#f8fafc] text-[#2d3748] border-[#e2e8f0]';
+          return 'bg-[#f7fafc] text-[#2d3748] border-[#e2e8f0]';
       }
     }
   };
