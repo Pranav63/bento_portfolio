@@ -1,131 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import BentoCard from './BentoCard';
+import ProjectCard from './ProjectCard';
 import AnimatedHero from './AnimatedHero';
-
-interface ProjectType {
-  title: string;
-  description: string;
-  link: string;
-  tags: string[];
-  highlights: string[];
-}
-
-const ProjectCard: React.FC<{ project: ProjectType }> = ({ project }) => (
-  <a
-    href={project.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block p-6 rounded-lg bg-[#2d2d2d] hover:bg-[#333333]
-             transition-all duration-300 border border-[#404040] hover:border-[#505050]
-             text-white transform hover:scale-[1.02]"
-  >
-    <h3 className="font-bold text-lg mb-2">{project.title}</h3>
-    <p className="text-[#b4b4b4] mb-3">{project.description}</p>
-    
-    <div className="flex flex-wrap gap-2 mb-3">
-      {project.tags.map((tag, index) => (
-        <span 
-          key={index}
-          className="px-2 py-1 text-xs rounded-full bg-[#404040] text-[#e4e4e4]"
-        >
-          {tag}
-        </span>
-      ))}
-    </div>
-    
-    <div className="space-y-1">
-      {project.highlights.map((highlight, index) => (
-        <div 
-          key={index}
-          className="text-sm text-[#b4b4b4] flex items-start"
-        >
-          <span className="text-[#666666] mr-2">•</span>
-          {highlight}
-        </div>
-      ))}
-    </div>
-  </a>
-);
-
-interface BentoCardProps {
-  children: React.ReactNode;
-  className?: string;
-  delay: number;
-  index: number;
-  isVisible: boolean;
-  variant?: 'light' | 'dark' | 'neutral';
-}
-
-const BentoCard: React.FC<BentoCardProps> = ({ 
-  children, 
-  className = '', 
-  delay,
-  index,
-  isVisible,
-  variant = 'neutral'
-}) => {
-  const getVariantStyles = () => {
-    switch(variant) {
-      case 'light':
-        return 'bg-[#f5f5f5] text-[#1c1c1c] border-[#e0e0e0] hover:border-[#cccccc]';
-      case 'dark':
-        return 'bg-[#1c1c1c] text-[#f5f5f5] border-[#333333] hover:border-[#444444]';
-      default:
-        return 'bg-[#2d2d2d] text-[#f5f5f5] border-[#404040] hover:border-[#505050]';
-    }
-  };
-
-  const getAnimationPath = () => {
-    switch(index % 4) {
-      case 0: return { x: -20, y: -20 };
-      case 1: return { x: 20, y: -20 };
-      case 2: return { x: -20, y: 20 };
-      case 3: return { x: 20, y: 20 };
-      default: return { x: 0, y: 20 };
-    }
-  };
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ 
-            opacity: 0,
-            ...getAnimationPath(),
-            scale: 0.95
-          }}
-          animate={{ 
-            opacity: 1,
-            x: 0,
-            y: 0,
-            scale: 1
-          }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ 
-            duration: 0.4,
-            delay: delay,
-            ease: [0.23, 1, 0.32, 1]
-          }}
-          className={`rounded-2xl p-6 
-                     border shadow-lg hover:shadow-xl 
-                     transition-all duration-300 
-                     ${getVariantStyles()}
-                     ${className}`}
-          whileHover={{ 
-            scale: 1.02,
-            transition: { duration: 0.2 }
-          }}
-          whileTap={{ scale: 0.98 }}
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
+import { useColorMode } from '../contexts/ColorModeContext';
 
 const BentoGrid: React.FC = () => {
+  const { colorMode } = useColorMode();
   const [isLoading, setIsLoading] = useState(true);
   const [showCards, setShowCards] = useState(false);
 
@@ -176,11 +57,11 @@ const BentoGrid: React.FC = () => {
 
   const skills = [
     { name: "Machine Learning", level: "Expert" },
-    { name: "Python", level: "Expert" },
-    { name: "TensorFlow", level: "Advanced" },
-    { name: "PyTorch", level: "Advanced" },
+    { name: "Python & SQL", level: "Expert" },
     { name: "Data Analytics", level: "Expert" },
-    { name: "Deep Learning", level: "Advanced" }
+    { name: "Generative AI", level: "Advanced" },
+    { name: "Deep Learning", level: "Advanced" },
+    { name: "DevOps", level: "Advanced" }
   ];
 
   const projects = [
@@ -226,13 +107,18 @@ const BentoGrid: React.FC = () => {
     linkedin: "https://www.linkedin.com/in/pranavarora63/"
   };
 
-  return (
-    <div className="min-h-screen bg-[#212121] text-[#e4e4e4] p-4">
+return (
+    <div className={`min-h-screen ${
+      colorMode === 'dark' ? 'bg-[#1a2f38]' : 'bg-[#f0f4f8]'
+    } text-[#e4e4e4] p-4`}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <AnimatedHero isLoading={isLoading} />
+          {/* Hero Section - Spans 2 columns */}
+          <div className="md:col-span-2">
+            <AnimatedHero isLoading={isLoading} />
+          </div>
 
-          {/* Contact/Social Links */}
+          {/* Contact/Social Links - Single column */}
           <BentoCard 
             index={0} 
             delay={0.1} 
@@ -269,31 +155,34 @@ const BentoGrid: React.FC = () => {
             </div>
           </BentoCard>
 
-          {/* Experience Section */}
-          <BentoCard 
-            index={1} 
-            delay={0.2} 
-            isVisible={showCards} 
-            className="md:col-span-2"
-            variant="dark"
-          >
-            <h2 className="text-xl font-bold mb-4">Experience</h2>
-            <div className="space-y-4">
-              {experiences.map((exp, index) => (
-                <div key={index} className="border-l-2 border-[#404040] pl-4">
-                  <h3 className="font-bold">{exp.title}</h3>
-                  <p className="text-sm text-[#b4b4b4]">{exp.company} • {exp.period}</p>
-                  <p className="mt-2 text-[#e4e4e4]">{exp.description}</p>
-                </div>
-              ))}
-            </div>
-          </BentoCard>
+          {/* Experience Section - Spans 2 columns */}
+          <div className="md:col-span-2">
+            <BentoCard 
+              index={1} 
+              delay={0.2} 
+              isVisible={showCards} 
+              className="h-full"
+              variant="dark"
+            >
+              <h2 className="text-xl font-bold mb-4">Experience</h2>
+              <div className="space-y-4">
+                {experiences.map((exp, index) => (
+                  <div key={index} className="border-l-2 border-[#404040] pl-4">
+                    <h3 className="font-bold">{exp.title}</h3>
+                    <p className="text-sm text-[#b4b4b4]">{exp.company} • {exp.period}</p>
+                    <p className="mt-2 text-[#e4e4e4]">{exp.description}</p>
+                  </div>
+                ))}
+              </div>
+            </BentoCard>
+          </div>
 
-          {/* Skills Section */}
+          {/* Skills Section - Single column */}
           <BentoCard 
             index={2} 
             delay={0.3} 
             isVisible={showCards}
+            className="h-full"
             variant="neutral"
           >
             <h2 className="text-xl font-bold mb-4">Skills</h2>
@@ -307,12 +196,12 @@ const BentoGrid: React.FC = () => {
             </div>
           </BentoCard>
 
-          {/* Projects Section */}
+          {/* Projects Section - Spans full width */}
+          <div className="md:col-span-3">
             <BentoCard 
               index={3} 
               delay={0.4} 
               isVisible={showCards} 
-              className="md:col-span-3"
               variant="light"
             >
               <h2 className="text-xl font-bold mb-6">Projects</h2>
@@ -322,10 +211,10 @@ const BentoGrid: React.FC = () => {
                 ))}
               </div>
             </BentoCard>
+          </div>
         </div>
       </div>
     </div>
-  );
-};
-
+);
+}
 export default BentoGrid;

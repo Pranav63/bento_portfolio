@@ -6,6 +6,8 @@ body {
   @apply bg-gradient-to-br from-[#1a1b2e] to-[#2d2b55];
   min-height: 100vh;
   overflow-x: hidden;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 /* Optional: Custom scrollbar */
@@ -21,3 +23,14 @@ body {
   background: rgba(139, 92, 246, 0.5);
   border-radius: 4px;
 }
+
+:root {
+  --color-background: #1a2f38;
+  --color-cardPrimary: #233d47;
+  --color-cardSecondary: #2d4a54;
+  --color-cardHighlight: #34565f;
+  --color-text: #e4e4e4;
+  --color-textSecondary: #b4b4b4;
+  --color-border: #395c68;
+}
+
