@@ -1,74 +1,77 @@
 import React from 'react';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface AnimatedHeroProps {
   isLoading: boolean;
 }
 
 const AnimatedHero: React.FC<AnimatedHeroProps> = ({ isLoading }) => {
-  const containerVariants: Variants = {
-    loading: {
-      position: 'fixed' as const,
-      top: '50%',
-      left: '50%',
-      x: '-50%',
-      y: '-50%',
-      scale: 1,
-      zIndex: 50,
-    },
-    loaded: {
-      position: 'relative' as const,
-      top: '0%',
-      left: '0%',
-      x: 0,
-      y: 0,
-      scale: 1,
-      zIndex: 1,
-    }
+  const moveTransition = {
+    type: "keyframes",
+    duration: 4,
+    ease: [0.22, 1, 0.36, 1],
+    times: [0, 1],
   };
 
   return (
     <motion.div
-      className="md:col-span-2 overflow-hidden"
-      initial={false}
-      animate={isLoading ? "loading" : "loaded"}
-      variants={containerVariants}
-      transition={{ 
-        duration: 0.6,
-        ease: [0.23, 1, 0.32, 1],
-        position: { duration: 0 }
+      className="md:col-span-2"
+      initial={{
+        y: '50vh',
+        x: '50%',
+        scale: 1.1,
+        translateX: '-50%',
+        translateY: '-50%',
+      }}
+      animate={{
+        y: isLoading ? '50vh' : 0,
+        x: isLoading ? '50%' : 0,
+        scale: isLoading ? 1.1 : 1,
+        translateX: isLoading ? '-50%' : '0%',
+        translateY: isLoading ? '-50%' : '0%',
+      }}
+      style={{
+        position: 'relative',
+        zIndex: isLoading ? 50 : 1,
+      }}
+      transition={{
+        y: moveTransition,
+        x: moveTransition,
+        scale: {
+          ...moveTransition,
+          duration: 3.8,
+        },
+        translateX: moveTransition,
+        translateY: moveTransition,
       }}
     >
-      <div className="relative bg-[#1c1c1c] rounded-2xl p-8 
-                    border border-[#333333] hover:border-[#444444]
-                    shadow-lg transition-all duration-300">
+      <div 
+        className={`
+          relative bg-[#1c1c1c] rounded-2xl p-8 
+          border border-[#333333] hover:border-[#444444]
+          shadow-lg transition-shadow duration-300
+          ${isLoading ? 'shadow-xl' : 'shadow-md'}
+        `}
+      >
         <div className="flex flex-col md:flex-row items-center gap-6">
-          <motion.div
-            className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl"
-            initial={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
+          <div 
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full 
+                       overflow-hidden shadow-xl transition-transform 
+                       duration-300 hover:scale-105"
           >
             <img
               src="/images/pranav_pho.png"
               alt="Pranav Arora"
               className="w-full h-full object-cover"
             />
-          </motion.div>
+          </div>
           <div className="text-center md:text-left">
-            <motion.h1
-              className="text-4xl md:text-5xl font-bold text-white"
-              initial={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
+            <h1 className="text-4xl md:text-5xl font-bold text-white">
               Pranav Arora
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl mt-2 text-[#b4b4b4]"
-              initial={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
+            </h1>
+            <p className="text-lg md:text-xl mt-2 text-[#b4b4b4]">
               Data Scientist | AI Enthusiast | GenAI Engineer
-            </motion.p>
+            </p>
           </div>
         </div>
       </div>

@@ -134,14 +134,24 @@ const BentoGrid: React.FC = () => {
     img.src = '/images/pranav_pho.png';
     
     img.onload = () => {
+      // Longer initial display time
       setTimeout(() => {
         setIsLoading(false);
+        // Wait for hero animation to fully complete before showing cards
         setTimeout(() => {
           setShowCards(true);
-        }, 600);
-      }, 1000);
+        }, 2000); // Increased delay to match slower hero animation
+      }, 2000);
+    };
+
+    img.onerror = () => {
+      setIsLoading(false);
+      setTimeout(() => {
+        setShowCards(true);
+      }, 2500);
     };
   }, []);
+
 
   const experiences = [
     {
