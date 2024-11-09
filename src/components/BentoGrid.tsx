@@ -3,6 +3,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import AnimatedHero from './AnimatedHero';
 
+interface ProjectType {
+  title: string;
+  description: string;
+  link: string;
+  tags: string[];
+  highlights: string[];
+}
+
+const ProjectCard: React.FC<{ project: ProjectType }> = ({ project }) => (
+  <a
+    href={project.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block p-6 rounded-lg bg-[#2d2d2d] hover:bg-[#333333]
+             transition-all duration-300 border border-[#404040] hover:border-[#505050]
+             text-white transform hover:scale-[1.02]"
+  >
+    <h3 className="font-bold text-lg mb-2">{project.title}</h3>
+    <p className="text-[#b4b4b4] mb-3">{project.description}</p>
+    
+    <div className="flex flex-wrap gap-2 mb-3">
+      {project.tags.map((tag, index) => (
+        <span 
+          key={index}
+          className="px-2 py-1 text-xs rounded-full bg-[#404040] text-[#e4e4e4]"
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+    
+    <div className="space-y-1">
+      {project.highlights.map((highlight, index) => (
+        <div 
+          key={index}
+          className="text-sm text-[#b4b4b4] flex items-start"
+        >
+          <span className="text-[#666666] mr-2">•</span>
+          {highlight}
+        </div>
+      ))}
+    </div>
+  </a>
+);
+
 interface BentoCardProps {
   children: React.ReactNode;
   className?: string;
@@ -130,16 +175,40 @@ const BentoGrid: React.FC = () => {
 
   const projects = [
     {
+      title: "Production Cycle Time Prediction",
+      description: "ML model to predict & optimize manufacturing cycle times using XGBoost. Achieved 85% accuracy and deployed via FastAPI.",
+      link: "https://github.com/Pranav63/production_cycle_time_prediction",
+      tags: ["Python", "XGBoost", "FastAPI", "Docker"],
+      highlights: [
+        "Reduced cycle time variations by 30%",
+        "Deployed model using FastAPI & Docker",
+        "Implemented real-time predictions"
+      ]
+    },
+    {
       title: "GAN's Face Generation",
-      description: "Face profile completion using Generative Adversarial Networks.",
-      link: "https://github.com/Pranav63/Generative-adverserial-Networks-Face-profile-completion-"
+      description: "Face profile completion using Generative Adversarial Networks with advanced image synthesis.",
+      link: "https://github.com/Pranav63/Generative-adverserial-Networks-Face-profile-completion-",
+      tags: ["PyTorch", "GANs", "Computer Vision"],
+      highlights: [
+        "Implemented custom GAN architecture",
+        "Achieved high-quality face completion",
+        "Real-time processing capabilities"
+      ]
     },
     {
       title: "RL Simulated Car Race",
-      description: "Self-driving car simulation using Reinforcement Learning.",
-      link: "https://github.com/Pranav63/SelfDrivingCar"
+      description: "Self-driving car simulation using Reinforcement Learning with dynamic environment adaptation.",
+      link: "https://github.com/Pranav63/SelfDrivingCar",
+      tags: ["Python", "RL", "PyTorch"],
+      highlights: [
+        "Custom reward function design",
+        "Real-time performance optimization",
+        "Dynamic obstacle avoidance"
+      ]
     }
   ];
+  
 
   const contactInfo = {
     email: "pranav2vis@gmail.com",
@@ -229,31 +298,20 @@ const BentoGrid: React.FC = () => {
           </BentoCard>
 
           {/* Projects Section */}
-          <BentoCard 
-            index={3} 
-            delay={0.4} 
-            isVisible={showCards} 
-            className="md:col-span-3"
-            variant="light"
-          >
-            <h2 className="text-xl font-bold mb-4">Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {projects.map((project, index) => (
-                <a
-                  key={index}
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block p-4 rounded-lg bg-[#2d2d2d] hover:bg-[#333333]
-                           transition-colors border border-[#404040] hover:border-[#505050]
-                           text-white"
-                >
-                  <h3 className="font-bold">{project.title}</h3>
-                  <p className="text-sm text-[#b4b4b4] mt-2">{project.description}</p>
-                </a>
-              ))}
-            </div>
-          </BentoCard>
+            <BentoCard 
+              index={3} 
+              delay={0.4} 
+              isVisible={showCards} 
+              className="md:col-span-3"
+              variant="light"
+            >
+              <h2 className="text-xl font-bold mb-6">Projects</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {projects.map((project, index) => (
+                  <ProjectCard key={index} project={project} />
+                ))}
+              </div>
+            </BentoCard>
         </div>
       </div>
     </div>
